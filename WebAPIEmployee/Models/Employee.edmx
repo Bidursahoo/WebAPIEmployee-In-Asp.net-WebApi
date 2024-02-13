@@ -1,0 +1,468 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="practiceDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_DEPARTMENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPT_NAME" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_EMPLOYEE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMP_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="FIRST_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="LAST_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="GENDER" Type="nvarchar" MaxLength="50" />
+          <Property Name="EMP_ADDRESS" Type="nvarchar" MaxLength="50" />
+          <Property Name="PHONE_NO" Type="nvarchar" MaxLength="50" />
+          <Property Name="EMAIL_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="DATEOFBIRTH" Type="date" />
+          <Property Name="DEPT_ID" Type="int" />
+          <Property Name="DATEOFJOINING" Type="date" />
+          <Property Name="PHOTO" Type="nvarchar(max)" />
+          <Property Name="EMP_STATUS" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_MONTH">
+          <Key>
+            <PropertyRef Name="MONTH_VALUE" />
+          </Key>
+          <Property Name="MONTH_VALUE" Type="int" Nullable="false" />
+          <Property Name="MONTH_TEXT" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="TBL_SALARY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMP_ID" Type="int" Nullable="false" />
+          <Property Name="BASIC_PAY" Type="int" />
+          <Property Name="TA" Type="int" />
+          <Property Name="DA" Type="int" />
+          <Property Name="HRA" Type="int" />
+          <Property Name="MONTH" Type="int" />
+          <Property Name="YEAR" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_YEAR">
+          <Key>
+            <PropertyRef Name="YEAR_VALUE" />
+          </Key>
+          <Property Name="YEAR_VALUE" Type="int" Nullable="false" />
+          <Property Name="YEAR_TEXT_VALUE" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Function Name="SP_DEPARTMENT_OPERATION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_DEPTCRUD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ACTION" Type="varchar" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="NAME" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_EMPLOYEECRUD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ACTION" Type="varchar" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="FIRSTNAME" Type="varchar" Mode="In" />
+          <Parameter Name="LASTNAME" Type="varchar" Mode="In" />
+          <Parameter Name="EMPLOYEEID" Type="varchar" Mode="In" />
+          <Parameter Name="GENDER" Type="varchar" Mode="In" />
+          <Parameter Name="ADDRESS" Type="varchar" Mode="In" />
+          <Parameter Name="PHONENUMBER" Type="varchar" Mode="In" />
+          <Parameter Name="EMAILID" Type="varchar" Mode="In" />
+          <Parameter Name="DATEOFBIRTH" Type="date" Mode="In" />
+          <Parameter Name="DEPARTMENTID" Type="int" Mode="In" />
+          <Parameter Name="DATEOFJOINING" Type="date" Mode="In" />
+          <Parameter Name="PHOTO" Type="varchar(max)" Mode="In" />
+          <Parameter Name="RETURN_VALUE" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_FILTER_EMPLOYEE_WITH_BIRTH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENTID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_SALARY_DATABOUND" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ACTION" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_SALARYCRUD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ACTION" Type="varchar" Mode="In" />
+          <Parameter Name="EMPID" Type="int" Mode="In" />
+          <Parameter Name="BASICPAY" Type="int" Mode="In" />
+          <Parameter Name="TA" Type="int" Mode="In" />
+          <Parameter Name="DA" Type="int" Mode="In" />
+          <Parameter Name="HRA" Type="int" Mode="In" />
+          <Parameter Name="MONTH" Type="int" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="DEPTID" Type="int" Mode="In" />
+          <Parameter Name="RETURN_VALUE" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_SELECT_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPT_ID" Type="int" Mode="In" />
+          <Parameter Name="YEAR" Type="varchar" Mode="In" />
+          <Parameter Name="EMP_ID" Type="int" Mode="In" />
+          <Parameter Name="NAME" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_SELECT_EMPLOYEE_WITH_DEPARTMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENTID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_SELECT_SALARY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPT_ID" Type="int" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="MONTH" Type="int" Mode="In" />
+          <Parameter Name="EMPID" Type="int" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="practiceDatabaseModelStoreContainer">
+          <EntitySet Name="TBL_DEPARTMENT" EntityType="Self.TBL_DEPARTMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_EMPLOYEE" EntityType="Self.TBL_EMPLOYEE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_MONTH" EntityType="Self.TBL_MONTH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_SALARY" EntityType="Self.TBL_SALARY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_YEAR" EntityType="Self.TBL_YEAR" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="practiceDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_DEPARTMENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TBL_EMPLOYEE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMP_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GENDER" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_ADDRESS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PHONE_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DATEOFBIRTH" Type="DateTime" Precision="0" />
+          <Property Name="DEPT_ID" Type="Int32" />
+          <Property Name="DATEOFJOINING" Type="DateTime" Precision="0" />
+          <Property Name="PHOTO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_STATUS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TBL_MONTH">
+          <Key>
+            <PropertyRef Name="MONTH_VALUE" />
+          </Key>
+          <Property Name="MONTH_VALUE" Type="Int32" Nullable="false" />
+          <Property Name="MONTH_TEXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TBL_SALARY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMP_ID" Type="Int32" Nullable="false" />
+          <Property Name="BASIC_PAY" Type="Int32" />
+          <Property Name="TA" Type="Int32" />
+          <Property Name="DA" Type="Int32" />
+          <Property Name="HRA" Type="Int32" />
+          <Property Name="MONTH" Type="Int32" />
+          <Property Name="YEAR" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TBL_YEAR">
+          <Key>
+            <PropertyRef Name="YEAR_VALUE" />
+          </Key>
+          <Property Name="YEAR_VALUE" Type="Int32" Nullable="false" />
+          <Property Name="YEAR_TEXT_VALUE" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="practiceDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_DEPARTMENT" EntityType="Self.TBL_DEPARTMENT" />
+          <EntitySet Name="TBL_EMPLOYEE" EntityType="Self.TBL_EMPLOYEE" />
+          <EntitySet Name="TBL_MONTH" EntityType="Self.TBL_MONTH" />
+          <EntitySet Name="TBL_SALARY" EntityType="Self.TBL_SALARY" />
+          <EntitySet Name="TBL_YEAR" EntityType="Self.TBL_YEAR" />
+          <FunctionImport Name="SP_DEPARTMENT_OPERATION" ReturnType="Collection(practiceDatabaseModel.SP_DEPARTMENT_OPERATION_Result)" />
+          <FunctionImport Name="SP_DEPTCRUD" ReturnType="Collection(practiceDatabaseModel.SP_DEPTCRUD_Result)">
+            <Parameter Name="ACTION" Mode="In" Type="String" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="NAME" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_EMPLOYEECRUD">
+            <Parameter Name="ACTION" Mode="In" Type="String" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="FIRSTNAME" Mode="In" Type="String" />
+            <Parameter Name="LASTNAME" Mode="In" Type="String" />
+            <Parameter Name="EMPLOYEEID" Mode="In" Type="String" />
+            <Parameter Name="GENDER" Mode="In" Type="String" />
+            <Parameter Name="ADDRESS" Mode="In" Type="String" />
+            <Parameter Name="PHONENUMBER" Mode="In" Type="String" />
+            <Parameter Name="EMAILID" Mode="In" Type="String" />
+            <Parameter Name="DATEOFBIRTH" Mode="In" Type="DateTime" />
+            <Parameter Name="DEPARTMENTID" Mode="In" Type="Int32" />
+            <Parameter Name="DATEOFJOINING" Mode="In" Type="DateTime" />
+            <Parameter Name="PHOTO" Mode="In" Type="String" />
+            <Parameter Name="RETURN_VALUE" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_FILTER_EMPLOYEE_WITH_BIRTH" ReturnType="Collection(practiceDatabaseModel.SP_FILTER_EMPLOYEE_WITH_BIRTH_Result)">
+            <Parameter Name="DEPARTMENTID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_SALARY_DATABOUND" ReturnType="Collection(practiceDatabaseModel.SP_SALARY_DATABOUND_Result)">
+            <Parameter Name="ACTION" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_SALARYCRUD">
+            <Parameter Name="ACTION" Mode="In" Type="String" />
+            <Parameter Name="EMPID" Mode="In" Type="Int32" />
+            <Parameter Name="BASICPAY" Mode="In" Type="Int32" />
+            <Parameter Name="TA" Mode="In" Type="Int32" />
+            <Parameter Name="DA" Mode="In" Type="Int32" />
+            <Parameter Name="HRA" Mode="In" Type="Int32" />
+            <Parameter Name="MONTH" Mode="In" Type="Int32" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="DEPTID" Mode="In" Type="Int32" />
+            <Parameter Name="RETURN_VALUE" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_SELECT_EMPLOYEE" ReturnType="Collection(practiceDatabaseModel.SP_SELECT_EMPLOYEE_Result)">
+            <Parameter Name="DEPT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="YEAR" Mode="In" Type="String" />
+            <Parameter Name="EMP_ID" Mode="In" Type="Int32" />
+            <Parameter Name="NAME" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_SELECT_EMPLOYEE_WITH_DEPARTMENT" ReturnType="Collection(practiceDatabaseModel.SP_SELECT_EMPLOYEE_WITH_DEPARTMENT_Result)">
+            <Parameter Name="DEPARTMENTID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_SELECT_SALARY" ReturnType="Collection(practiceDatabaseModel.SP_SELECT_SALARY_Result)">
+            <Parameter Name="DEPT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="MONTH" Mode="In" Type="Int32" />
+            <Parameter Name="EMPID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SelectEmployee" EntitySet="TBL_EMPLOYEE" ReturnType="Collection(practiceDatabaseModel.TBL_EMPLOYEE)">
+            <Parameter Name="DEPT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="YEAR" Mode="In" Type="String" />
+            <Parameter Name="EMP_ID" Mode="In" Type="Int32" />
+            <Parameter Name="NAME" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SP_DEPARTMENT_OPERATION_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="DEPT_NAME" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_DEPTCRUD_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="DEPT_NAME" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_FILTER_EMPLOYEE_WITH_BIRTH_Result">
+          <Property Type="Int32" Name="yearOfBirth" Nullable="true" />
+          <Property Type="String" Name="nameOfYearOfBirth" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_SALARY_DATABOUND_Result">
+          <Property Type="Int32" Name="YEAR_VALUE" Nullable="false" />
+          <Property Type="String" Name="YEAR_TEXT_VALUE" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="SP_SELECT_EMPLOYEE_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="EMP_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FIRST_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LAST_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="GENDER" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EMP_ADDRESS" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="DEPT_ID" Nullable="true" />
+          <Property Type="String" Name="PHONE_NO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EMAIL_ID" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DATEOFBIRTH" Nullable="true" />
+          <Property Type="String" Name="DEPT_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DATEOFJOINING" Nullable="true" />
+          <Property Type="String" Name="PHOTO" Nullable="true" />
+          <Property Type="String" Name="PhotoURL" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_SELECT_EMPLOYEE_WITH_DEPARTMENT_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="fullName" Nullable="true" MaxLength="103" />
+        </ComplexType>
+        <ComplexType Name="SP_SELECT_SALARY_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="EMP_ID" Nullable="false" />
+          <Property Type="Int32" Name="BASIC_PAY" Nullable="true" />
+          <Property Type="Int32" Name="TA" Nullable="true" />
+          <Property Type="Int32" Name="DA" Nullable="true" />
+          <Property Type="Int32" Name="HRA" Nullable="true" />
+          <Property Type="String" Name="MONTH_TEXT" Nullable="true" />
+          <Property Type="String" Name="YEAR_TEXT_VALUE" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="FULL_NAME" Nullable="true" MaxLength="101" />
+          <Property Type="Int32" Name="DEPT_ID" Nullable="false" />
+          <Property Type="String" Name="DEPT_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="TOTAL_SALARY" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="practiceDatabaseModelStoreContainer" CdmEntityContainer="practiceDatabaseEntities">
+          <EntitySetMapping Name="TBL_DEPARTMENT">
+            <EntityTypeMapping TypeName="practiceDatabaseModel.TBL_DEPARTMENT">
+              <MappingFragment StoreEntitySet="TBL_DEPARTMENT">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DEPT_NAME" ColumnName="DEPT_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_EMPLOYEE">
+            <EntityTypeMapping TypeName="practiceDatabaseModel.TBL_EMPLOYEE">
+              <MappingFragment StoreEntitySet="TBL_EMPLOYEE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+                <ScalarProperty Name="EMP_ADDRESS" ColumnName="EMP_ADDRESS" />
+                <ScalarProperty Name="PHONE_NO" ColumnName="PHONE_NO" />
+                <ScalarProperty Name="EMAIL_ID" ColumnName="EMAIL_ID" />
+                <ScalarProperty Name="DATEOFBIRTH" ColumnName="DATEOFBIRTH" />
+                <ScalarProperty Name="DEPT_ID" ColumnName="DEPT_ID" />
+                <ScalarProperty Name="DATEOFJOINING" ColumnName="DATEOFJOINING" />
+                <ScalarProperty Name="PHOTO" ColumnName="PHOTO" />
+                <ScalarProperty Name="EMP_STATUS" ColumnName="EMP_STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_MONTH">
+            <EntityTypeMapping TypeName="practiceDatabaseModel.TBL_MONTH">
+              <MappingFragment StoreEntitySet="TBL_MONTH">
+                <ScalarProperty Name="MONTH_VALUE" ColumnName="MONTH_VALUE" />
+                <ScalarProperty Name="MONTH_TEXT" ColumnName="MONTH_TEXT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_SALARY">
+            <EntityTypeMapping TypeName="practiceDatabaseModel.TBL_SALARY">
+              <MappingFragment StoreEntitySet="TBL_SALARY">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="BASIC_PAY" ColumnName="BASIC_PAY" />
+                <ScalarProperty Name="TA" ColumnName="TA" />
+                <ScalarProperty Name="DA" ColumnName="DA" />
+                <ScalarProperty Name="HRA" ColumnName="HRA" />
+                <ScalarProperty Name="MONTH" ColumnName="MONTH" />
+                <ScalarProperty Name="YEAR" ColumnName="YEAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_YEAR">
+            <EntityTypeMapping TypeName="practiceDatabaseModel.TBL_YEAR">
+              <MappingFragment StoreEntitySet="TBL_YEAR">
+                <ScalarProperty Name="YEAR_VALUE" ColumnName="YEAR_VALUE" />
+                <ScalarProperty Name="YEAR_TEXT_VALUE" ColumnName="YEAR_TEXT_VALUE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_DEPARTMENT_OPERATION" FunctionName="practiceDatabaseModel.Store.SP_DEPARTMENT_OPERATION">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="practiceDatabaseModel.SP_DEPARTMENT_OPERATION_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DEPT_NAME" ColumnName="DEPT_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_DEPTCRUD" FunctionName="practiceDatabaseModel.Store.SP_DEPTCRUD">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="practiceDatabaseModel.SP_DEPTCRUD_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DEPT_NAME" ColumnName="DEPT_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_EMPLOYEECRUD" FunctionName="practiceDatabaseModel.Store.SP_EMPLOYEECRUD" />
+          <FunctionImportMapping FunctionImportName="SP_FILTER_EMPLOYEE_WITH_BIRTH" FunctionName="practiceDatabaseModel.Store.SP_FILTER_EMPLOYEE_WITH_BIRTH">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="practiceDatabaseModel.SP_FILTER_EMPLOYEE_WITH_BIRTH_Result">
+                <ScalarProperty Name="yearOfBirth" ColumnName="yearOfBirth" />
+                <ScalarProperty Name="nameOfYearOfBirth" ColumnName="nameOfYearOfBirth" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SALARY_DATABOUND" FunctionName="practiceDatabaseModel.Store.SP_SALARY_DATABOUND">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="practiceDatabaseModel.SP_SALARY_DATABOUND_Result">
+                <ScalarProperty Name="YEAR_VALUE" ColumnName="YEAR_VALUE" />
+                <ScalarProperty Name="YEAR_TEXT_VALUE" ColumnName="YEAR_TEXT_VALUE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SALARYCRUD" FunctionName="practiceDatabaseModel.Store.SP_SALARYCRUD" />
+          <FunctionImportMapping FunctionImportName="SP_SELECT_EMPLOYEE" FunctionName="practiceDatabaseModel.Store.SP_SELECT_EMPLOYEE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="practiceDatabaseModel.SP_SELECT_EMPLOYEE_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+                <ScalarProperty Name="EMP_ADDRESS" ColumnName="EMP_ADDRESS" />
+                <ScalarProperty Name="DEPT_ID" ColumnName="DEPT_ID" />
+                <ScalarProperty Name="PHONE_NO" ColumnName="PHONE_NO" />
+                <ScalarProperty Name="EMAIL_ID" ColumnName="EMAIL_ID" />
+                <ScalarProperty Name="DATEOFBIRTH" ColumnName="DATEOFBIRTH" />
+                <ScalarProperty Name="DEPT_NAME" ColumnName="DEPT_NAME" />
+                <ScalarProperty Name="DATEOFJOINING" ColumnName="DATEOFJOINING" />
+                <ScalarProperty Name="PHOTO" ColumnName="PHOTO" />
+                <ScalarProperty Name="PhotoURL" ColumnName="PhotoURL" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SELECT_EMPLOYEE_WITH_DEPARTMENT" FunctionName="practiceDatabaseModel.Store.SP_SELECT_EMPLOYEE_WITH_DEPARTMENT">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="practiceDatabaseModel.SP_SELECT_EMPLOYEE_WITH_DEPARTMENT_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="fullName" ColumnName="fullName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SELECT_SALARY" FunctionName="practiceDatabaseModel.Store.SP_SELECT_SALARY">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="practiceDatabaseModel.SP_SELECT_SALARY_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="BASIC_PAY" ColumnName="BASIC_PAY" />
+                <ScalarProperty Name="TA" ColumnName="TA" />
+                <ScalarProperty Name="DA" ColumnName="DA" />
+                <ScalarProperty Name="HRA" ColumnName="HRA" />
+                <ScalarProperty Name="MONTH_TEXT" ColumnName="MONTH_TEXT" />
+                <ScalarProperty Name="YEAR_TEXT_VALUE" ColumnName="YEAR_TEXT_VALUE" />
+                <ScalarProperty Name="FULL_NAME" ColumnName="FULL_NAME" />
+                <ScalarProperty Name="DEPT_ID" ColumnName="DEPT_ID" />
+                <ScalarProperty Name="DEPT_NAME" ColumnName="DEPT_NAME" />
+                <ScalarProperty Name="TOTAL_SALARY" ColumnName="TOTAL_SALARY" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectEmployee" FunctionName="practiceDatabaseModel.Store.SP_SELECT_EMPLOYEE" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
